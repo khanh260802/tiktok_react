@@ -12,7 +12,6 @@ function App() {
         else 
             setOptions([...options, cars[id]]); 
     }
-    console.log(options)
     return (
         <div className="App">
             {cars.map((car, index) => 
