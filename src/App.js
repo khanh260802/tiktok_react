@@ -1,30 +1,40 @@
 import "./App.css";
 import { useState } from "react";
-
-
 function App() {
-    
-    const cars = ['Lamboghini', 'Honda', 'Mazda']; 
-    const [options, setOptions] = useState([]); 
-    function handlerCheckbox(id) { 
-        if(options.find((car)=> car === cars[id]))
-            setOptions(options.filter((car, index) => index !== id))
-        else 
-            setOptions([...options, cars[id]]); 
+    const cars = [
+        {
+            name: 'Lamboghini',
+            id: 1,
+        }, 
+        {
+            name: 'Honda',
+            id: 2,
+        }, 
+        {
+            name: 'Mazda',
+            id: 3,
+        }
+    ]; 
+    const [option, setOptions] = useState(0); 
+    var handlerSubmid = () => { 
+        console.log(option)
     }
+
+
     return (
         <div className="App">
-            {cars.map((car, index) => 
-                <div key = {index}>
-                    <label htmlFor={car}> {car} </label>
+            {cars.map((car) => 
+                <div key = {car.id}>
+                    <label htmlFor={car.id}> {car.name} </label>
                     <input
-                        id={index} 
-                        type="checkbox"
-                        onChange={() => handlerCheckbox(index)}
+                        id={car.id} 
+                        type="radio"
+                        onChange = {() => setOptions(car.id)}
+                        checked = {car.id === option}
                     />
                 </div>
             )}
-            
+            <button onClick={handlerSubmid}> Submit </button>
         </div>
     );      
 }
