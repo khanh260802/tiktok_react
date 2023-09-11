@@ -3,40 +3,48 @@ import { useState } from "react";
 function App() {
     const cars = [
         {
-            name: 'Lamboghini',
+            name: "Lamboghini",
             id: 1,
-        }, 
+        },
         {
-            name: 'Honda',
+            name: "Honda",
             id: 2,
-        }, 
+        },
         {
-            name: 'Mazda',
+            name: "Mazda",
             id: 3,
-        }
-    ]; 
-    const [option, setOptions] = useState(0); 
-    var handlerSubmid = () => { 
-        console.log(option)
-    }
+        },
+    ];
+    const [options, setOptions] = useState([]);
+    var handlerSubmid = () => {
+        console.log(options);
+    };
 
+    var handlerCheckox = (id) => {
+        setOptions((prev) => {
+            if (!prev.includes(id)) 
+                return [...prev, id];
+            else 
+                return prev.filter((itemID) => itemID !== id);
+        });
+    };
 
     return (
         <div className="App">
-            {cars.map((car) => 
-                <div key = {car.id}>
+            {cars.map((car) => (
+                <div key={car.id}>
                     <label htmlFor={car.id}> {car.name} </label>
                     <input
-                        id={car.id} 
-                        type="radio"
-                        onChange = {() => setOptions(car.id)}
-                        checked = {car.id === option}
+                        id={car.id}
+                        type="checkBox"
+                        onChange={() => handlerCheckox(car.id)}
+                        checked = {options.includes(car.id)}
                     />
                 </div>
-            )}
+            ))}
             <button onClick={handlerSubmid}> Submit </button>
         </div>
-    );      
+    );
 }
 
 export default App;
